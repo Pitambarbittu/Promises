@@ -156,6 +156,76 @@ function Do(){
  
  a();
  //<----------------->
+
+
+//q6
+//Create examples to explain callback hell function
+let getEmpID=()=>{
+  setTimeout(()=>{
+    console.log("Fetching the Id's");
+    let id= [1,2,3,4,5];
+    console.log(id);
+
+    setTimeout((id)=>{
+        let empDetails={
+        name: "Pitambar",
+        age:25
+        }
+        console.log(`ID of the employee is ${id} and The name of the employee is ${empDetails.name} and age is ${empDetails.age}`);
+      
+        setTimeout(()=>{
+            empDetails.gender="Male";
+            console.log(`The name of the employee is ${empDetails.name} and the age is ${empDetails.age} and the gender is ${empDetails.gender}`);
+
+            setTimeout(()=>{
+              empDetails.salary=45000;
+              console.log(`The name of the employee is ${empDetails.name} and the age is ${empDetails.age} and the gender is ${empDetails.gender} and the salary is ${empDetails.salary}`);    
+        },2000);
+    },2000);
+  },2000,id[1]);
+},2000);
+}
+getEmpID();
+
+ //<----------------->
+
+//q7
+//Create examples to explain promises function
+let getEmID=new Promise((resolve,reject)=>{
+  setTimeout(()=>{
+      let id=[1,2,3,4,5];
+      resolve(id);
+      reject("Error in fetching the id details");
+  },2000)
+})
+
+let getEmpDetails=(data)=>{
+  return new Promise((resolve,reject)=>{//2nd way of creating promises
+      setTimeout((data)=>{
+          let empDetails={
+              name:"Pitambar Bhadra",
+              age:26
+          }
+          resolve(`The name of the employee is ${empDetails.name} and age is ${empDetails.age}`)
+      },2000,data);
+  })
+}
+
+getEmID.then((id)=>{//takes id parameter of 1st resolve
+  console.log(id);
+  return getEmpDetails(id[1])
+}).then((sample)=>{//Here indexing 1 means It is accessing id 2 of id array
+      console.log(sample);
+}).catch((err)=>{
+  console.log(err);
+}).finally(()=>{
+   console.log("End of Promise");
+  })
+
+
+ //<----------------->
+
+
  
  //q8
  async function getData(){ //async key word tries to execute continuesly until all the task to be done/executed.
